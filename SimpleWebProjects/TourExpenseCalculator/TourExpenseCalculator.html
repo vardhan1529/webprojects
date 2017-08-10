@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tour Expense Calculator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="scripts/jquery-2.1.1.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .main_container {
+            height: 100%;
+            background-color: aquamarine;
+        }
+
+        .discussion_container {
+            height: 100%;
+            padding-top: 50px;
+        }
+
+        .message_container {
+            background-color: white;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        .header_container {
+            background-color: black;
+            height: 50px;
+            position: fixed;
+            z-index: 1000;
+            width: 100%;
+            color: white;
+        }
+
+        .group_container {
+            background-color: gainsboro;
+            height: 100%;
+            padding: 0px;
+        }
+
+        .user_img {
+            /*margin-left: -20px;*/
+            float: left;
+        }
+
+            .user_img > img {
+                border-radius: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+        .message {
+            margin: 20px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid lightgrey;
+        }
+
+        .message_content {
+            margin-left: 50px;
+        }
+
+        .float_left {
+            float: left;
+        }
+
+        .group_menu{
+            list-style:none;
+            padding: 0px;
+        }
+
+            .group_menu > li {
+                padding: 15px 15px 15px 25px;
+                font-size: 20px;
+                color: cadetblue;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+        .menu_active{
+            background-color: aliceblue;
+        }
+
+        .user_menu{
+            float:right;
+            padding-right: 20px;
+        }
+
+        .user_menu_btn{
+            height: 50px;
+            font-size: 20px;
+            background-color:black;
+            border: none;
+        }
+
+    </style>
+    <script src="scripts/jquery-2.1.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("body").css("height", $(window).height() + "px");
+            $(window).resize(function () {
+                $("body").css("height", $(window).height() + "px");
+            });
+        });
+
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid main_container" id="main_container">
+        <div class="row header_container">
+            <div class="dropdown user_menu">
+                <button class="btn btn-primary dropdown-toggle user_menu_btn" type="button" data-toggle="dropdown">
+                    Jayavardhan
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">SignOut</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="discussion_container row">
+            <div class="col-lg-1 col-md-2 col-sm-4 col-xs-5 group_container">
+                <ul id="group_menu" class="group_menu">
+                    <li class="menu_active">Working Group 1</li>
+                    <li>Working Group 1</li>
+                    <li>Working Group 1</li>
+                    <li>Working Group 1</li>
+                </ul>
+            </div>
+            <div class="col-lg-11 col-md-10 col-sm-8 col-xs-7 message_container">
+                <div class="row message">
+                    <div class="user_img"><img src="Images/user_sample.PNG" class="user_img" /></div>
+                    <div class="message_content">
+                        <div>User 1</div>
+                        <div>The User 1 has commented</div>
+                    </div>
+                </div>
+                <div class="row message">
+                    <div class="user_img"><img src="Images/user_sample.PNG" class="user_img" /></div>
+                    <div class="message_content">
+                        <div>User 2</div>
+                        <div>The User 2 has commented</div>
+                    </div>
+                </div>
+                <div class="row message">
+                    <div class="user_img"><img src="Images/user_sample.PNG" class="user_img" /></div>
+                    <div class="message_content">
+                        <div>User 3</div>
+                        <div>The User 3 has commented</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
