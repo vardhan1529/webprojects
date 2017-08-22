@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Basics</title>
+    <meta charset="utf-8" />
+    <link href="styles/snakeladder.css" rel="stylesheet" />
+    <script src="scripts/jquery-3.1.1.js"></script>
+    <script src="scripts/app/snakegame.js"></script>
+    <script>
+        $(document).ready(function () {
+            var game_config = [];
+            $("#default_games").on('click', function () {
+                $("#main_dashboard").hide();
+                $("#default_games_container").show();
+            });
+
+            $(".default_game_select").on('click', function () {
+                $("#default_games_container").hide();
+                $("#game_config_container").show().attr("data-selected_game_type", $(this).attr("data-game_type"));
+                game_config = [];
+                game_config.push({ id: 1, name: "", image_data: "" });
+
+            });
+
+            File.prototype.convertToBase64 = function (cb_func) {
+                var reader = new FileReader();
+                reader.onloadend = function (e) {
+                    cb_func(e.target.result, e.target.error);
+                };
+                reader.readAsDataURL(this);
+            };
+
+            $(document).on('change', ".user_img_select", function () {
+                var selectedFile = this.files[0];
+                var id = $(this).parent().attr("data-id");
+                var user = game_config.find(m => m.id == id);
+                selectedFile.convertToBase64(function (d) {
+                    user.image_data = d;
+                })
+            });
+
+            $(document).on('change', ".user_details input[type='text']", function () {
+                var id = $(this).parent().attr("data-id");
+                var user = game_config.find(m => m.id == id);
+                user.name = $(this).val();
+            });
+
+            $(document).on('click', ".add_user", function () {
+                var par = $(this).parent();
+                var id = parseInt(par.attr("data-id"));
+                game_config.push({ id: id + 1, name: "", image_data: "" });
+                par.after('<div class="user_details" data-id="' + parseInt(id + 1) + '"><input type="text" /><input type="file" class="user_img_select" value="Select User Image" /><button class="add_user">Add User</button></div>');
+                $(this).remove();
+                par.append('<button class="remove_user">Remove User</button>');
+            });
+
+            $(document).on('click', ".remove_user", function () {
+                var par = $(this).parent();
+                var id = parseInt(par.attr("data-id"));
+                for (var i = 0 ; i < game_config.length; i++) {
+                    if (game_config[i].id == id) {
+                        game_config.splice(i, 1);
+                        break;
+                    }
+                }
+
+                par.remove();
+            });
+
+            $(document).on("click", ".start_game", function () {
+                var game_type = $("#game_config_container").attr("data-game_type");
+                var ss = new snakeladder("snake_game_container", 100, 2);
+                var id = 1;
+                $.each(game_config, function (i, v) {
+                    if (v.name != "") {
+                        ss.users.push({ id: id, name: v.name, p_n: 0, active: true, user_image: v.image_data });
+                        id++;
+                    }
+                });
+
+                $("#game_config_container").hide().html('<div class="game_config">' +
+            '<div class="game_config_title">Configure user details</div>' +
+            '<div class="user_details" data-id="1"><input type="text" /><input type="file" class="user_img_select" value="Select User Image" /><button class="add_user">Add User</button></div>' +
+            '<div><button class="start_game">Start Game</button></div></div>')
+                game_config = [];
+                ss.load();
+            });
+        })
+    </script>
+</head>
+<body>
+    <div class="root">
+        <div class="game_select_controller">
+            <div class="title_container">
+                <div class="title">
+                    <div><img src="images/Icon.png" class="icon" /></div>
+                    <div class="title_name">Simple Project</div>
+                </div>
+            </div>
+            <div class="main_dashboard" id="main_dashboard">
+                <div class="dashboard_game_select" id="create_new_game"> Create <br /> new Game</div>
+                <div class="dashboard_game_select" id="default_games"> Select <br />game from <br /> defaults </div>
+            </div>
+            <div id="default_games_container" class="default_games_container" style="display:none">
+                <div class="default_game_select" data-game_type="100_p1">
+                    <div><img src="images/snakes-and-ladders_100x100.jpg" /></div>
+                    <div class="default_game_select_text">100 steps</div>
+                </div>
+                <div class="default_game_select" data-game_type="150_p1">
+                    <div><img src="images/snakes-and-ladders_100x100.jpg" /></div>
+                    <div class="default_game_select_text">150 steps</div>
+                </div>
+                <div class="default_game_select" data-game_type="200_p1">
+                    <div><img src="images/snakes-and-ladders_100x100.jpg" /></div>
+                    <div class="default_game_select_text">200 steps</div>
+                </div>
+            </div>
+        </div>
+        <div id="snake_game_container"></div>
+    </div>
+    <div id="game_config_container" style="display:none" class="game_config_container">
+        <div class="game_config">
+            <div class="game_config_title">Configure user details</div>
+            <div class="user_details" data-id="1"><input type="text" /><input type="file" class="user_img_select" value="Select User Image" /><button class="add_user">Add User</button></div>
+            <div><button class="start_game">Start Game</button></div>
+        </div>
+    </div>
+</body>
+</html>
