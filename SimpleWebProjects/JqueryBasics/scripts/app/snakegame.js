@@ -129,7 +129,7 @@ function snakeladder(elem_id, no_of_boxes) {
 
         }
         var elem = $('#' + this.target_elem_id);
-        elem.append('<ul class="game_container">' + boxes_html + '</ul>');
+        elem.append('<div style="clear:both"></div><ul class="game_container">' + boxes_html + '</ul>');
 
         elem.append("<div class='roll_container'><input type='text' class='roll_v_d'/><button class='roll_btn'>Roll</button></div>")
         var u_elem = "";
