@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+ <style>
+     .tasks_container{
+         float:left;
+         width: 40%;
+     }
+ </style>
+</head>
+<body>
+    <div>
+        <input type="text" id="task_name" />
+        <button id="add_task">Add</button>
+    </div>
+    <div>
+        <progress value="100" max="100" id="task_progress">
+
+        </progress>
+    </div>
+    <div>
+        <div class="tasks_container" id="pending_tasks"></div>
+        <div class="tasks_container" id="completed_tasks"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        //function ToDo(container_elem)
+        //{
+        //    this.Task_Name = "";
+        //    this.TodoList = [];
+
+        //    this.add_task = function () {
+
+        //    }
+
+        //    this.bindEvents = function () {
+
+        //    }
+
+        //    this.initialise = function () {
+        //        var task_input = document.createElement("DIV");
+        //        task_input.appendChild(document.createElement("Input"));
+        //        task_input.appendChild(document.createElement("Button"));
+        //        document.getElementById(container_elem).
+        //    }
+        //}
+
+        function Task(id, task_name) {
+            this.Id = id;
+            this.Name = task_name;
+            this.Completed = false;
+        }
+
+        var todo_list = [];
+        var latest_task_id = 0;
+
+        document.getElementById("add_task").addEventListener("click", function () {
+            var task_name = document.getElementById("task_name").value.trim();
+            if(task_name == "")
+            {
+                alert("Task cannot be empty");
+                return;
+            }
+
+            latest_task_id++
+            var task = new Task(latest_task_id, task_name);
+            todo_list.push(task);
+            UpdateToDoList();
+            UpdateProgressBar();
+        });
+
+        function UpdateTask(e) {
+            todo_list.find(m => m.Id == e.target.parentElement.id).Completed = e.target.checked;
+            console.log(todo_list);
+            UpdateToDoList();
+            UpdateProgressBar();
+        }
+
+        function DeleteTask(e)
+        {
+            let id = e.target.parentElement.id;
+            let index = todo_list.findIndex(m => m.Id == id);
+            todo_list.splice(index, 1);
+            UpdateToDoList();
+            UpdateProgressBar();
+        }
+
+        function UpdateProgressBar()
+        {
+            let count = todo_list.length;
+            let completed_count = 0;
+            for (let j = 0; j < count; j++)
+            {
+                if (todo_list[j]["Completed"]) {
+                    completed_count++;
+                }
+
+            }
+            
+            document.getElementById("task_progress").value = (completed_count / count) * 100;
+        }
+
+        function UpdateToDoList() {
+            var pending_list_elem = document.getElementById("pending_tasks");
+            var completed_list_elem = document.getElementById("completed_tasks");
+            pending_list_elem.innerHTML = "";
+            completed_list_elem.innerHTML = "";
+            for(var i =0 ; i< todo_list.length; i++)
+            {
+                let task = todo_list[i];
+                if(task.Completed)
+                {
+                    completed_list_elem.appendChild(CreateToDoItem(task));
+                }
+                else {
+                    pending_list_elem.appendChild(CreateToDoItem(task));
+                }
+            }
+        }
+
+        function CreateToDoItem(task) {
+            let task_content_elem = document.createElement("Div");
+            task_content_elem.id = task.Id;
+            var checkbox = document.createElement('input');
+            checkbox.type = "checkbox";
+            if (task.Completed)
+            {
+                checkbox.setAttribute("checked", task.completed);
+            }
+            checkbox.onchange = UpdateTask;
+            task_content_elem.appendChild(checkbox);
+            let task_name_elem = document.createElement("SPAN");
+            let task_name_text = document.createTextNode(task.Name);
+            task_name_elem.appendChild(task_name_text);
+            task_content_elem.appendChild(task_name_elem);
+
+            let task_delete_elem = document.createElement("SPAN");
+            let task_delete_text = document.createTextNode("\u00D7");
+            task_delete_elem.appendChild(task_delete_text);
+            task_delete_elem.onclick = DeleteTask;
+            task_content_elem.appendChild(task_delete_elem);
+            return task_content_elem;
+        }
+
+    </script>
+</body>
+</html>
