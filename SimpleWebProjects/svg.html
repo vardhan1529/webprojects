@@ -2,12 +2,12 @@
 <html>
 <head>
     <title>svg tutorial</title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
 </head>
 <body>
-   <div>
-       <h5>SVG Tutorial</h5>
-   </div>
+    <div>
+        <h5>SVG Tutorial</h5>
+    </div>
     <div>
         <svg width="300" height="300">
             <rect x="0" y="0" width="100%" height="100%" fill="transparent" stroke="black" stroke-width="3"></rect>
@@ -24,6 +24,7 @@
         </svg>
         <svg width="300" height="300" id="graph">
             <rect width="100%" height="100%" fill="#0b0b0c"></rect>
+            <polygon points="0 300 0 150 300 80 300 300" fill="#2a2a2b"></polygon>
             <polygon points="0 300 0 250 300 150 300 300" fill="#3f4042"></polygon>
             <polygon points="0 300 0 260 300 200 300 300" fill="#747577"></polygon>
             <polygon points="0 300 0 280 300 240 300 300" fill="#c6c9ce"></polygon>
@@ -45,13 +46,13 @@
         for(var i=0;i< n; i++)
         {
             var point = points[i];
-            sX += point.x;
-            sY += point.y;
-            sX2 += point.x * point.x;
-            sXY += point.x * point.y;
+            sX += (point.x);
+            sY += (300 -point.y);
+            sX2 += (point.x) * (point.x);
+            sXY += (point.x) * (300- point.y);
         }
 
-        m = (n * sXY - sX * sY) / (n * sX2 - sX * 2);
+        m = (n * sXY - sX * sY) / (n * sX2 - sX * sX);
         c = (sY - m * sX) / n;
 
         var s = document.getElementById("graph");
@@ -60,7 +61,7 @@
             var point = points[i];
             var e = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
             e.setAttribute("cx", point.x);
-            e.setAttribute("cy", point.y);
+            e.setAttribute("cy", (300 - point.y));
             e.setAttribute("r", 2);
             e.setAttribute("fill", "yellow");
             s.appendChild(e);
