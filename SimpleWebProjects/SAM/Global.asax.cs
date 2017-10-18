@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAM.Filters;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Services;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace SAM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
+            FilterProviders.Providers.Add(new CustomActionFilterProvider());
         }
 
         protected void SessionAuthenticationModule_SessionSecurityTokenReceived(object sender, SessionSecurityTokenReceivedEventArgs e)
