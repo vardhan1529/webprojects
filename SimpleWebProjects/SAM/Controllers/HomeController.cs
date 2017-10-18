@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAM.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 namespace SAM.Controllers
 {
     [Authorize]
+    [CustomActionFilter]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -28,6 +30,12 @@ namespace SAM.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult ChildActionPartial()
+        {
+            return new EmptyResult();
         }
     }
 }
