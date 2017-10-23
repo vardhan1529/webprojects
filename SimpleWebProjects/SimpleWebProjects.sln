@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnakeGame", "SnakeGame\Snak
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAM", "SAM\SAM.csproj", "{22C5995F-1566-46AC-9295-8BE694CD2D63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oauth", "Oauth\Oauth.csproj", "{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}"
+EndProject
 Global
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
@@ -30,6 +32,10 @@ Global
 		{22C5995F-1566-46AC-9295-8BE694CD2D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22C5995F-1566-46AC-9295-8BE694CD2D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22C5995F-1566-46AC-9295-8BE694CD2D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
