@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SAM.Models;
 
 namespace SAM.Controllers
 {
@@ -17,22 +18,30 @@ namespace SAM.Controllers
     public class HomeController : Controller
     {
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            //HttpClient cl = HttpClientFactory.GetHttpClient();
-            //cl.BaseAddress = new Uri("http://localhost:59577/");
-            //var x = cl.GetAsync("api/values").Result;
-            //var c = ClaimsPrincipal.Current.Claims;
-            //var t2 = await t().ConfigureAwait(false);
-            //t1.Start();
-            var y = t().Result;
-            return View();
+            //For testing use this data
+            var items = Menu.GroupMenu(new List<Menu>() { new Menu() { Id = 1, Name = "P1" },
+               new Menu() { Id = 2, PId = 1, Name = "C1P1"  }
+                , new Menu() { Id = 3, PId = 1, Name = "C2P1"  },
+               new Menu() { Id = 4,  Name = "P2"  },
+               new Menu() { Id = 5, PId = 4, Name = "C1P2"  },
+               new Menu() { Id = 6, PId = 5, Name = "C1C1P2"  }
+        });
+
+            return View(items);
         }
 
-        public async Task<string> t()
+        //The HttpContext item is becoming null when configureAwait is used.
+        public async Task<string> ContextItemCheck()
         {
+            var x = HttpContext.Request;
             System.Threading.Thread.Sleep(1000);
-            Task<string> t = new Task<string>(() => { return "false"; });
+            Task<string> t = new Task<string>(() =>
+            {
+                var y = HttpContext.Request;
+                return "false";
+            });
             t.Start();
 
             return await t.ConfigureAwait(false);
