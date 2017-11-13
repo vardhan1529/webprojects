@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAM", "SAM\SAM.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oauth", "Oauth\Oauth.csproj", "{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedProjectUploader", "SharedProjectUploader\SharedProjectUploader.csproj", "{22C4D75D-0668-4C34-A703-04A815A44092}"
+EndProject
 Global
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
@@ -36,6 +38,10 @@ Global
 		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D25E9473-C1A3-41BD-AA32-E0BA7322CD53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22C4D75D-0668-4C34-A703-04A815A44092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22C4D75D-0668-4C34-A703-04A815A44092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22C4D75D-0668-4C34-A703-04A815A44092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22C4D75D-0668-4C34-A703-04A815A44092}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
