@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using SAM.Handlers;
+using System.Web;
 using System.Web.Mvc;
 
 namespace SAM
@@ -7,7 +8,8 @@ namespace SAM
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            //filters.Add(new HandleErrorAttribute());
+            filters.Add(new CustomErrorAttribute());
         }
     }
 }

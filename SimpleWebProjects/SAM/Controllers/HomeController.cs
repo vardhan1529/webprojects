@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using SAM.Models;
+using System.Data.SqlClient;
 
 namespace SAM.Controllers
 {
@@ -66,5 +67,23 @@ namespace SAM.Controllers
         {
             return new EmptyResult();
         }
+
+        public ActionResult ErrorTestAction()
+        {
+            throw new NotImplementedException();
+        }
+
+        //protected override void OnException(ExceptionContext filterContext)
+        //{
+        //    var m = filterContext.Exception.Message;
+        //    if (filterContext.Exception.GetType() == typeof(SqlException))
+        //    {
+        //        filterContext.Result = new RedirectResult("~/SqlError");
+        //    }
+        //    else
+        //    {
+        //        filterContext.Result = RedirectToAction("Index", "Home");
+        //    }
+        //}
     }
 }
