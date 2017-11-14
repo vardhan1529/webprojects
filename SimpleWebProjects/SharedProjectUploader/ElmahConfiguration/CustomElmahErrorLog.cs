@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using Elmah;
+using System.Xml;
 
 namespace SharedProjectUploader.ElmahConfiguration
 {
@@ -56,7 +57,55 @@ namespace SharedProjectUploader.ElmahConfiguration
 
         public override string Log(Elmah.Error error)
         {
-            return base.Log(error);
+            var r = new XmlDocument();
+            var e = r.CreateElement("error");
+            e.SetAttribute("application", error.ApplicationName);
+            e.SetAttribute("host", error.HostName);
+            e.SetAttribute("type", error.Type);
+            e.SetAttribute("message", error.Message);
+            e.SetAttribute("source", error.Source);
+            e.SetAttribute("detail", error.Detail);
+            e.SetAttribute("time", error.Time.ToString("yyyy-MM-ddThh:mm:ss.fffffff"));
+            r.AppendChild(e);
+            r.SelectSingleNode("descendant::error").AppendChild(r.CreateElement("serverVariables"));
+            var re = r.SelectSingleNode("descendant::serverVariables");
+            foreach (var sv in error.ServerVariables.AllKeys)
+            {
+                XmlElement rei = r.CreateElement("item");
+                rei.SetAttribute("name", sv);
+                XmlElement rev = r.CreateElement("value");
+                rev.SetAttribute("string", error.ServerVariables.Get(sv));
+                rei.AppendChild(rev);
+                re.AppendChild(rei);
+            }
+            r.SelectSingleNode("descendant::error").AppendChild(r.CreateElement("cookies"));
+            var rc = r.SelectSingleNode("descendant::cookies");
+            foreach (var sv in error.ServerVariables.AllKeys)
+            {
+                XmlElement rci = r.CreateElement("item");
+                rci.SetAttribute("name", sv);
+                XmlElement rcv = r.CreateElement("value");
+                rcv.SetAttribute("string", error.ServerVariables.Get(sv));
+                rci.AppendChild(rcv);
+                rc.AppendChild(rci);
+            }
+            var c = new ErrorLogContext();
+            c.ErrorLog1.Add(new ErrorLog1()
+            {
+                ErrorId = Guid.NewGuid(),
+                Application = this.ApplicationName,
+                Message = error.Message,
+                StatusCode = error.StatusCode,
+                TimeUtc = error.Time,
+                Type = error.Type,
+                User = error.User,
+                Host = error.HostName,
+                Source = error.Source,
+                AllXml = r.OuterXml
+            });
+
+            c.SaveChanges();
+            return "successful";
         }
 
         public override int GetErrors(int pageIndex, int pageSize, IList errorEntryList)
@@ -81,6 +130,11 @@ namespace SharedProjectUploader.ElmahConfiguration
                     }));
             }
             return c.ErrorLog1.Count();
+        }
+
+        public override ErrorLogEntry GetError(string id)
+        {
+            return base.GetError(id);
         }
     }
 }
