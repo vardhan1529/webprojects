@@ -169,6 +169,7 @@
     <Compile Include="Handlers\ImageRouteHandler.cs" />
     <Compile Include="Helpers\CustomHelpers.cs" />
     <Compile Include="Models\Menu.cs" />
+    <Compile Include="Modules\CustomLogModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
