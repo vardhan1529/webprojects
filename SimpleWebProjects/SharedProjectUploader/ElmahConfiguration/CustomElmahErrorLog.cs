@@ -80,12 +80,12 @@ namespace SharedProjectUploader.ElmahConfiguration
             }
             r.SelectSingleNode("descendant::error").AppendChild(r.CreateElement("cookies"));
             var rc = r.SelectSingleNode("descendant::cookies");
-            foreach (var sv in error.ServerVariables.AllKeys)
+            foreach (var sv in error.Cookies.AllKeys)
             {
                 XmlElement rci = r.CreateElement("item");
                 rci.SetAttribute("name", sv);
                 XmlElement rcv = r.CreateElement("value");
-                rcv.SetAttribute("string", error.ServerVariables.Get(sv));
+                rcv.SetAttribute("string", error.Cookies.Get(sv));
                 rci.AppendChild(rcv);
                 rc.AppendChild(rci);
             }
