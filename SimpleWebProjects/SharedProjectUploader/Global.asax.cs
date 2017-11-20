@@ -16,6 +16,23 @@ namespace SharedProjectUploader
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            this.BeginRequest += Application_BeginRequest;
+            this.EndRequest += Application_EndRequest;
+        }
+
+        protected void Application_Error()
+        {
+            var x = Server.GetLastError();
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var x = sender;
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            var y = sender;
         }
     }
 }

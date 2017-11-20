@@ -13,7 +13,16 @@ namespace SharedProjectUploader.Controllers
 
         public ActionResult Index()
         {
+            throw new Exception("test");
             var x = new SharedProjectsContext();
+            IEnumerable<FileInformation> y1 = x.FileInformation.Where(m => !m.IsAbsolete);
+            y1 = y1.OrderBy(m => m.Id).ToList();
+            var y2 = x.FileInformation.Where(m => !m.IsAbsolete);
+            y2 = y2.OrderBy(m => m.Id);
+            foreach(var l in y2)
+            {
+                var m = l.Id;
+            }
             var y = x.FileInformation.Include("CategoryInfo").ToList();
             var z = y[0].UserInfo;
             return View();
