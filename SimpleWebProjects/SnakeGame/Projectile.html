@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        .t{
+height:100%;
+margin:0px;
+        }
+    </style>
+    <script src="scripts/jquery-3.1.1.js"></script>
+    <script src="scripts/app/projectile.js"></script>
+</head>
+<body class="t">
+    <div id="o">
+        <div style="float:left;border:1px solid red">
+            <div>
+                <label>Initial Velocity</label>
+                <input type="text" id="i_v" />
+            </div>
+            <div>
+                <label>Angle(deg)</label>
+                <input type="text" min="0" max="90" id="ang" />
+            </div>
+            <button id="cal" onclick="execute()">Execute</button>
+        </div>
+        <div style="float:left">
+            <canvas id="simu" width="750" height="550" style="border:1px solid black" onmousemove="showReading(event)"></canvas>
+        </div>
+        <div id="test">
+
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <script type="text/javascript">
+        document.getElementById("o").style.height = getDocHeight() + "px";
+        var simu = document.getElementById('simu');
+        var simu_ctx = simu.getContext('2d');
+
+        simu_ctx.fillStyle = 'grey';
+        var coords;
+        var x_m = 0;
+        var y_m = 0;
+        var x_i = 0;
+        var y_i = 0;
+        var graph_drawn = false;
+        var p = $("#test").projectile({ width: 750, height: 550 });
+        p.init();
+        function execute() {
+            graph_drawn = false;
+            //Set initial values to (50, 500) i.e origin
+            coords = [{ x: 50, y: 500 }];
+
+            var v_i = parseInt(document.getElementById("i_v").value);
+            var ang = parseInt(document.getElementById("ang").value);
+            var rad = 0.0174533 * ang;
+            x_m = (v_i * v_i * Math.sin(2 * rad)) / 9.8;
+            y_m = (v_i * v_i * Math.sin(rad) * Math.sin(rad)) / (2 * 9.8);
+            x_i = x_m / 700;
+            y_i = y_m / 500;
+            for (var x = 1; x < 700; x++) {
+                let y = ((x * x_i) * Math.tan(rad) - 9.8 * Math.pow((x * x_i), 2) / (2 * Math.pow(v_i, 2) * Math.pow(Math.cos(rad), 2))) / y_i;
+                coords.push({ x: x + 50, y: y });
+            }
+
+            draw();
+            graph_drawn = true;
+
+            p.execute({i_velocity: v_i, angle: ang });
+        }
+
+        function draw() {
+            simu_ctx.clearRect(0, 0, 750, 550);
+            //Draw X,Y Axis
+            simu_ctx.beginPath();
+            simu_ctx.moveTo(50, 0);
+            simu_ctx.lineTo(50, 500);
+            simu_ctx.lineTo(750, 500);
+            simu_ctx.strokeStyle = 'skyblue';
+            simu_ctx.stroke();
+            simu_ctx.closePath();
+
+            //Min,Max,Middle values for Axis
+
+            simu_ctx.beginPath();
+            simu_ctx.fillStyle = 'orange';
+            simu_ctx.font = "20px Ariel";
+            simu_ctx.fillText(y_m, 30, 20);
+            simu_ctx.fillText(y_m / 2, 30, 275);
+            simu_ctx.fillText("0,0", 30, 520);
+            simu_ctx.fillText(x_m / 2, 400, 520);
+            simu_ctx.fillText(x_m, 680, 520);
+            simu_ctx.stroke();
+            simu_ctx.closePath();
+
+
+            simu_ctx.strokeStyle = 'orange';
+            simu_ctx.beginPath();
+            simu_ctx.lineWidth = 3;
+            simu_ctx.moveTo(coords[0].x, coords[0].y);
+            for (var i = 1; i < coords.length - 1; i++) {
+                simu_ctx.lineTo(coords[i].x, 500 - coords[i].y);
+                simu_ctx.stroke();
+            }
+
+            simu_ctx.closePath();
+        }
+
+        function showReading(e) {
+            if (!graph_drawn) {
+                return;
+            }
+            simu_ctx.clearRect(0, 0, 750, 550);
+            draw();
+            var x = e.offsetX;
+            var y = 500 - e.offsetY;
+
+            for (var i = 0; i < 700; i++) {
+                var c = coords[i];
+                if (x <= c.x + 2 && x >= c.x - 2 && y >= c.y - 2 && y <= c.y + 2) {
+                    simu_ctx.beginPath();
+                    simu_ctx.fillStyle = 'red';
+                    simu_ctx.font = "20px Ariel";
+                    simu_ctx.fillText(Math.round((c.x - 50) * x_i) + " , " + Math.round(c.y * y_i), x, e.offsetY);
+                    simu_ctx.stroke();
+                    simu_ctx.closePath();
+                    break;
+                }
+            }
+        }
+
+        window.onresize = function () {
+            document.getElementById("o").style.height = getDocHeight() + "px";
+
+        }
+
+        function getDocHeight() {
+            return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        }
+
+
+    </script>
+</body>
+</html>

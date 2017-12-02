@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Icons.html" />
     <Content Include="images\Icon.png" />
     <Content Include="images\ladder1.png" />
     <Content Include="images\ladder2.png" />
@@ -114,6 +115,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Projectile.html" />
+    <Content Include="scripts\app\ConceptSamples.js" />
+    <Content Include="scripts\app\projectile.js" />
     <Content Include="scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="scripts\jquery-3.1.1.min.map" />
     <None Include="Web.Debug.config">
@@ -134,7 +138,10 @@
     <Content Include="scripts\jquery-3.1.1.slim.js" />
     <Content Include="scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="styles\snakeladder.css" />
-    <Content Include="Web.config" />
+    <Content Include="svg_icons\Sample.svg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

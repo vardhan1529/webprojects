@@ -1,0 +1,60 @@
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 8:51:55 AM
+Request end DateTime(utc) : 11/14/2017 8:51:57 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 8:51:57 AM
+Request end DateTime(utc) : 11/14/2017 8:51:57 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/__browserLink/requestData/9437684d8d6443daaed47659eff6d13a?version=2
+Request begin DateTime(utc) : 11/14/2017 8:51:57 AM
+Request end DateTime(utc) : 11/14/2017 8:51:57 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/__browserLink/requestData/13d719ac1d024a6bbcc19c39128043fc?version=2
+Request begin DateTime(utc) : 11/14/2017 8:51:57 AM
+Request end DateTime(utc) : 11/14/2017 8:51:57 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 9:54:19 AM
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 9:54:56 AM
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 11:44:15 AM
+Request end DateTime(utc) : 11/14/2017 11:44:16 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/__browserLink/requestData/771c50e35dc5401cbab244d4f15c98cd?version=2
+Request begin DateTime(utc) : 11/14/2017 11:44:17 AM
+Request end DateTime(utc) : 11/14/2017 11:44:17 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/
+Request begin DateTime(utc) : 11/14/2017 11:55:38 AM
+Request end DateTime(utc) : 11/14/2017 11:55:39 AM
+Status Code: 200
+Status Description: OK
+
+
+Request Url : http://localhost:63687/__browserLink/requestData/36a0c6bd3af84ae3be7f527e44cffc86?version=2
+Request begin DateTime(utc) : 11/14/2017 11:55:39 AM
+Request end DateTime(utc) : 11/14/2017 11:55:39 AM
+Status Code: 200
+Status Description: OK
+
+

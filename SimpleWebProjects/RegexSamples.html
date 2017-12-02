@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>Web Page Design</title>
+<body>
+    <div id="res">
+        
+    </div>
+    <script>
+var res =  document.getElementById("res");
+var e = "<span>--- --- ---- phone number test</span></br></br>";
+var ps = ['123 123 1234', '1234 123 1234', 'ads ad adfa', 'a12 b12 c123'];
+for(var i=0; i<ps.length; i++)
+{
+e = e + '<span>' + ps[i] + ':------------</span><span>        ' 
++          /^\d{3}[ ]\d{3}[ ]\d{4}$/.test(ps[i]) + 
+' </span></br>';
+}
+
+e = e + "<br/><br/><span>(---) --- ---- phone number test</span></br></br>";
+
+ps = ['(123) 123 1234', '(1234) 123 1234', 'ads ad adfa', 
+      'a12 b12 c123','123 231 2134', '(123) 213 12324','(123) 213 1232 3455'];
+
+for(var i=0; i<ps.length; i++)
+{
+e = e + '<span>' + ps[i] + ':------------</span><span>        ' +
+                 /^[(]{1}\d{3}[)][ ]\d{3}[ ]\d{4}$/.test(ps[i]) +
+' </span></br>';
+}
+
+e = e + "<br/><br/><span>(---) --- ---- or --- --- ---- phone number test</span></br></br>";
+
+ps = ['(123) 123 1234', '(1234) 123 1234', 'ads ad adfa', 
+      'a12 b12 c123','123 231 2134', '(123) 213 12324','(123) 213 1232 3455', '(123)123 123 1234'];
+
+for(var i=0; i<ps.length; i++)
+{
+e = e + '<span>' + ps[i] + ':------------</span><span>        ' +
+                 /^(?:\({1}\d{3}\)|\d{3})[ ]\d{3}[ ]\d{4}$/.test(ps[i]) +
+' </span></br>';
+}
+
+
+
+res.innerHTML = e;
+</script>
+</body>
+</html>

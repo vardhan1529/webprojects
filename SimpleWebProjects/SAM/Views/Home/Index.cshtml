@@ -1,4 +1,7 @@
-﻿@{
+﻿@using SAM.Helpers;
+
+@model List<SAM.Models.Menu>
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -29,6 +32,27 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+@helper Menu(List<SAM.Models.Menu>
+    items)
+{
+    <ul>
+        @foreach (var item in items)
+        {
+            <li>
+                @item.Name
+                @if (item.ChildMenu.Any())
+                {
+                    @Menu(item.ChildMenu)
+                }
+            </li>
+        }
+    </ul>
+}
 
-@* For Testing purpose *@
-@Html.Action("ChildActionPartial")
+@Menu(Model)
+
+@Html.Menu(Model)
+
+
+    @* For Testing purpose *@
+    @Html.Action("ChildActionPartial")
