@@ -157,7 +157,6 @@ namespace ElmahMvc.Controllers
             //var img = Convert.ToBase64String(SiteManagement.GetViewPreviewImage());
             //ViewBag.Img = "data:image/png;base64," + img;
 
-            OledbConnectionSample();
                 return View();
             }
 

@@ -1,0 +1,66 @@
+﻿@model ElmahMvc.Models.TutorialInfo
+@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>Tutorial details</h2>
+@using (Html.BeginForm("UploadTutorial", "File", FormMethod.Post, new { enctype = "multipart/form-data", id = "t_form" }))
+{
+    <div>
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description)
+    </div>
+}
+
+<div>
+    <label>Data</label>
+    <input type="file" name="data" multiple id="file_data" />
+</div>
+
+<div>
+    <button type="submit" id="tutorial_upload">Upload</button>
+</div>
+
+<div>
+    <button id="download_file">Download sample file</button>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#download_file").on("click", function () {
+                window.location = "file/download?filename=a.txt";
+            })
+            $("tutorial_upload").on("click", function () {
+                $("#t_form").submit();
+            })
+            $("#file_data").on("change", function () {
+                //for (var i = 0; i < this.files.length; i++)
+                //{
+                //    var fd = new FormData();
+                //    var xhr = new XMLHttpRequest();
+                //    xhr.open('POST', 'file/upload', true);
+                //    fd.append("data", this.files[i], this.files[i].name);
+                //    xhr.send(fd);
+                //}
+
+                for (var i = 0; i < this.files.length; i++) {
+                    var fd = new FormData();
+                    fd.append("data", this.files[i], this.files[i].name);
+                    $.ajax({
+                        url: "file/upload",
+                        type: "post",
+                        data: fd,
+                        contentType: false,
+                        cache: false,
+                        processData: false
+                    })
+                }
+            });
+        })
+    </script>
+}
