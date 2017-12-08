@@ -10,8 +10,7 @@
 <div>The AppDomainId : @ViewBag.AppDoaminId</div>
 <div>Environment ID : @ViewBag.HostingEnvironmentID</div>
 <div>Site name : @ViewBag.HostEnvironmentSiteName</div>
- 
-            
+
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
@@ -40,11 +39,51 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+<img src="@ViewBag.Img" />
+<div id="o_test">
+    <iframe id="o_f"></iframe>
+</div>
+<div id="t_test">
+
+</div>
+
 
 
 @section scripts{
+@*<script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>*@
+
+<script src="https://online.tableau.com/javascripts/api/tableau-2.min.js"></script>
 <script>
+    window.addEventListener('message', function (event) {
+
+        // IMPORTANT: Check the origin of the data! 
+        //if (~event.origin.indexOf('http://yoursite.com')) {
+        // The data has been sent from your site 
+
+        // The data sent with postMessage is stored in event.data 
+        console.log(event.data);
+        //} else {
+        //    // The data hasn't been sent from your site! 
+        //    // Be careful! Do not use it. 
+        //    return;
+        //}
+    });
+
     $(document).ready(function () {
+        var placeholderDiv = document.getElementById("t_test");
+        //?:embed=y&:showAppBanner=false&:showShareOptions=true&:display_count=no&:showVizHome=no
+
+        var url = "https://us-east-1.online.tableau.com/t/deadmo1529/views/ExecutiveSalesforce/SalesSummary";
+        var options = {
+            hideTabs: true,
+            width: "800px",
+            height: "700px",
+            onFirstInteractive: function () {
+                console.log("error");
+            }
+        };
+        var viz = new tableau.Viz(placeholderDiv, url, options);
+
         $("#t").on('click', function () {
             $.ajax({
                 url: "/test",
