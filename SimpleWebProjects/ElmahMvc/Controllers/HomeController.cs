@@ -10,14 +10,18 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml;
+using TableauAPI;
 
 namespace ElmahMvc.Controllers
 {
@@ -105,7 +109,7 @@ namespace ElmahMvc.Controllers
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("https://us-east-1.online.tableau.com");
-                client.DefaultRequestHeaders.Add("X-Tableau-Auth", "SJtZhqANny9QCdzry4RUWza9mvrwm8UO");
+                client.DefaultRequestHeaders.Add("X-Tableau-Auth", "XDTcQMzxIZyIijOy43UUheSpBkOz7WZR");
                 var doc = new XmlDocument();
                 var root = doc.CreateElement("tsRequest");
                 var workbook = doc.CreateElement("workbook");
@@ -136,6 +140,41 @@ namespace ElmahMvc.Controllers
                 }
             }
         }
+
+        public async static Task Publish()
+        {
+            var boundryString = "--testtafasf";
+            var by = System.IO.File.ReadAllBytes("D:\\Analyze Superstore.twbx").ToList();
+            StringBuilder sb = new StringBuilder();
+            by.ForEach(m => { sb.Append(Convert.ToString(m)); });
+            var body =
+                boundryString + "\r\n" +
+                "Content-Disposition: name=\"request_payload\"\r\n" +
+                "Content-Type: text/xml\r\n\r\n" +
+                "<tsRequest>\r\n" +
+                "    <project id=\"54e0d2fd-e322-4aa1-b0f6-bad5494515c0\" />\r\n" +
+                "</tsRequest>\r\n" +
+                "\r\n" + boundryString + "\r\n" +
+                "Content-Disposition: name=\"tableau_datasource\"; filename=\"test\"\r\n" +
+                "Content-Type: application/octet-stream\r\n\r\n" +
+                sb.ToString() + "\r\n\r\n" +
+                boundryString + "--";
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://us-east-1.online.tableau.com");
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/2.7/sites/57ab922b-ce9b-478b-86e7-80a9f8e87754/workbooks");
+            request.Content = new StringContent("");
+            request.Content.Headers.Clear();
+            request.Content.Headers.Add("ContentType", "multipart/mixed, boundary=" + boundryString);
+
+            //client.DefaultRequestHeaders.Add("X-Tableau-Auth", "XDTcQMzxIZyIijOy43UUheSpBkOz7WZR");
+            var result = await client.SendAsync(request);
+
+            var res = result.Content.ReadAsStringAsync().Result;
+        }
+
+        
     }
         public class HomeController : Controller
         {
@@ -153,6 +192,7 @@ namespace ElmahMvc.Controllers
                 ViewBag.ThreadId = Thread.CurrentThread.ManagedThreadId;
                 ViewBag.AppDoamin = AppDomain.CurrentDomain.FriendlyName;
                 ViewBag.AppDoaminId = AppDomain.CurrentDomain.Id;
+            //await SiteManagement.Publish();
             //await SiteManagement.UploadWorkBook();
             //var img = Convert.ToBase64String(SiteManagement.GetViewPreviewImage());
             //ViewBag.Img = "data:image/png;base64," + img;
