@@ -86,6 +86,7 @@
     <Content Include="packages.config" />
     <Content Include="Projectile.html" />
     <Content Include="scripts\app\ConceptSamples.js" />
+    <Content Include="scripts\app\fileuploader.js" />
     <Content Include="scripts\app\projectile.js" />
     <Content Include="scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="scripts\jquery-3.1.1.min.map" />
